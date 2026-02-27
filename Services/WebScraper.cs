@@ -9,11 +9,9 @@ namespace InternetTechLab1.Services
     {
         private readonly HttpClient _httpClient;
 
-        public WebScraper()
+        public WebScraper(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36");
-            _httpClient.Timeout = TimeSpan.FromSeconds(30);
+            _httpClient = httpClient;
         }
 
         public async Task<ScrapedPage?> ScrapeUrlAsync(string url)

@@ -3,12 +3,17 @@ using InternetTechLab1.Models;
 using InternetTechLab1.Services;
 using System.Text.Json;
 
-var db = new AppDbContext();
+SettingsService settingsService = new SettingsService();
+
+var db = new AppDbContext(settingsService.CurrentSettings.Database);
 db.Database.EnsureCreated();
 
-GitHubService githubService = new GitHubService();
-WebScraper webScrapper = new WebScraper();
-SettingsService settingsService = new SettingsService();
+HttpClient httpClient = new HttpClient();  
+httpClient.DefaultRequestHeaders.Add("User-Agent", "InternetTechLab1-App");
+httpClient.Timeout = TimeSpan.FromSeconds(settingsService.CurrentSettings.Timeout);
+
+GitHubService githubService = new GitHubService(httpClient);  
+WebScraper webScraper = new WebScraper(httpClient);       
 
 
 while (true)
@@ -28,7 +33,7 @@ while (true)
     }
     else if (choice == "2")
     {
-        await ScrapingMenu(webScrapper, db);
+        await ScrapingMenu(webScraper, db);
     }
     else if (choice == "3")
     {
@@ -109,7 +114,7 @@ async Task SearchRepositories(GitHubService service, AppDbContext db)
 
     try
     {
-        List<GitHubRepository> repositories = await service.SearchRepositoriesAsync(query);
+        List<GitHubRepository> repositories = await service.SearchRepositoriesAsync(query, settingsService.CurrentSettings.CountPage);
 
         if (repositories.Count == 0)
         {
@@ -335,10 +340,9 @@ void ShowSettings(SettingsService settingsService)
         Console.WriteLine("Настройки:");
         Console.WriteLine($"1.Количество результатов: {settingsService.CurrentSettings.CountPage}");
         Console.WriteLine($"2.Таймаут: {settingsService.CurrentSettings.Timeout}");
-        Console.WriteLine($"3.Автосохранение: {(settingsService.CurrentSettings.AutoSave ? "Вкл" : "Выкл")}");
-        Console.WriteLine($"4.Файл БД: {settingsService.CurrentSettings.Database}");
-        Console.WriteLine("5.Сбросить настройки");
-        Console.WriteLine("6.Назад");
+        Console.WriteLine($"3.Файл БД: {settingsService.CurrentSettings.Database}");
+        Console.WriteLine("4.Сбросить настройки");
+        Console.WriteLine("5.Назад");
         Console.Write("Выберите: ");
 
         var choice = Console.ReadLine();
@@ -362,10 +366,6 @@ void ShowSettings(SettingsService settingsService)
                 break;
 
             case "3":
-                settingsService.UpdateSettings(s => s.AutoSave = !s.AutoSave);
-                break;
-
-            case "4":
                 Console.Write("Имя файла БД (например: mydb.db):");
                 string? dbName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(dbName))
@@ -374,19 +374,18 @@ void ShowSettings(SettingsService settingsService)
                 }
                 break;
 
-            case "5":
+            case "4":
                 settingsService.UpdateSettings(s =>
                 {
                     s.Database = "InternetTechLab1.db";
                     s.CountPage = 10;
                     s.Timeout = 30;
-                    s.AutoSave = false;
                 });
-                Console.WriteLine("✅ Настройки сброшены");
+                Console.WriteLine("Настройки сброшены");
                 Thread.Sleep(1000);
                 break;
 
-            case "6":
+            case "5":
                 return;
         }
     }

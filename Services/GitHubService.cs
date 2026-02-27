@@ -7,11 +7,9 @@ namespace InternetTechLab1.Services
     {
         private readonly HttpClient _httpClient;
 
-        public GitHubService()
+        public GitHubService(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "InternetTechLab1-App");
-            _httpClient.Timeout = TimeSpan.FromSeconds(30);
+            _httpClient = httpClient;
         }
 
         public async Task<List<GitHubRepository>> SearchRepositoriesAsync(string query , int perPage = 10)
@@ -43,7 +41,7 @@ namespace InternetTechLab1.Services
                 }
 
                 string json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Получен JSON, длина: {json.Length} символов");
+                Console.WriteLine($"Получен JSON, длина: {json.Length} символов \n");
 
                 using JsonDocument document = JsonDocument.Parse(json);
                 JsonElement root = document.RootElement;
@@ -56,8 +54,6 @@ namespace InternetTechLab1.Services
 
                 List<GitHubRepository> repositories = new List<GitHubRepository>();
 
-                Console.WriteLine($"Найдено {repositories.Count} репозиториев");
-
                 foreach (JsonElement item in items.EnumerateArray())
                 {
                     try
@@ -66,7 +62,7 @@ namespace InternetTechLab1.Services
                         if (repository != null)
                         {
                             repositories.Add(repository);
-                            Console.WriteLine($"Найден {repository.Name} ({repository.Stars} stars)");
+                            Console.WriteLine($"Найден: {repository.Name} ({repository.Stars} stars)");
                         }
                     }
                     catch

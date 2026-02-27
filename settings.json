@@ -1,6 +1,5 @@
 {
   "database": "InternetTechLab1.db",
   "count_page": 15,
-  "timeout": 30,
-  "auto_save": false
+  "timeout": 30
 }

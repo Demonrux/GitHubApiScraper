@@ -12,8 +12,5 @@ namespace InternetTechLab1.Models
 
         [JsonPropertyName("timeout")]
         public int Timeout { get; set; } = 30;
-
-        [JsonPropertyName("auto_save")]
-        public bool AutoSave { get; set; } = false;
     }
 }
