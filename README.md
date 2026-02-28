@@ -49,8 +49,7 @@ InternetTechLab1/
 {
   "database": "InternetTechLab1.db",
   "count_page": 10,
-  "timeout": 30,
-  "auto_save": false
+  "timeout": 30
 }
 ```
 
@@ -59,7 +58,6 @@ InternetTechLab1/
 | database | Имя файла БД | InternetTechLab1.db |
 | count_page | Кол-во результатов | 10 |
 | timeout | Таймаут (сек) | 30 |
-| auto_save | Автосохранение | false |
 
 ## Технологии
 
