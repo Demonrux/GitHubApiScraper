@@ -1,5 +1,6 @@
 {
-  "database": "InternetTechLab1.db",
+  "api_database": "gitHubRepos.db",
+  "scraping_database" : "scraping_docs.db",
   "count_page": 15,
   "timeout": 30
 }

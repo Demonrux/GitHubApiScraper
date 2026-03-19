@@ -9,18 +9,18 @@ InternetTechLab1/
 ├── Database/                           # Работа с базой данных
 │   └── AppDbContext.cs                  # Контекст БД (таблицы GitHubRepos, ScrapedPages)
 │
-├── Models/                              # Модели данных
-│   ├── GitHubRepository.cs               # Модель репозитория (Id, Name, Stars, Url...)
-│   ├── ScrapedPage.cs                    # Модель страницы (Title, H1, Description, Links...)
-│   └── Setting.cs                         # Модель настроек (Database, CountPage, Timeout...)
+├── Models/                             # Модели данных
+│   ├── GitHubRepository.cs              # Модель репозитория (Id, Name, Stars, Url...)
+│   ├── ScrapedPage.cs                   # Модель страницы (Title, H1, Description, Links...)
+│   └── Setting.cs                       # Модель настроек (Database, CountPage, Timeout...)
 │
-├── Services/                            # Бизнес-логика
-│   ├── GitHubService.cs                   # Работа с GitHub API (поиск репозиториев)
-│   ├── WebScraper.cs                      # Веб-скраппинг (извлечение данных с сайтов)
-│   └── SettingsService.cs                  # Управление настройками (чтение/запись settings.json)
+├── Services/                           # Бизнес-логика
+│   ├── GitHubService.cs                  # Работа с GitHub API (поиск репозиториев)
+│   ├── WebScraper.cs                     # Веб-скраппинг (извлечение данных с сайтов)
+│   └── SettingsService.cs                # Управление настройками (чтение/запись settings.json)
 │
-├── Program.cs                         # Точка входа, консольное меню, взаимодействие с пользователем
-└── settings.json                       # Файл конфигурации (БД, количество результатов, таймаут...)
+├── Program.cs                          # Точка входа, консольное меню, взаимодействие с пользователем
+└── settings.json                       # Файл конфигурации (БД, количество результатов, таймаут)
 ```
 
 ## Возможности
@@ -59,7 +59,6 @@ InternetTechLab1/
 | database | Имя файла БД | InternetTechLab1.db |
 | count_page | Кол-во результатов | 10 |
 | timeout | Таймаут (сек) | 30 |
-| auto_save | Автосохранение | false |
 
 ## Технологии
 
@@ -68,10 +67,5 @@ InternetTechLab1/
 - GitHub API
 - HtmlAgilityPack для парсинга HTML
 
-## Установка
-
-1. Клонируйте репозиторий:
-```bash
-git clone https://github.com/Demonrux/GitHubApiScraper.git
 
 

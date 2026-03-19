@@ -1,16 +1,16 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace InternetTechLab1.Models
+public class Setting
 {
-    public class Setting
-    {
-        [JsonPropertyName("database")]
-        public string Database { get; set; } = "InternetTechLab1.db";
+    [JsonPropertyName("gitHubReposDatabase")]
+    public string GitHubReposDatabase { get; set; } = "gitHubRepos.db";
 
-        [JsonPropertyName("count_page")]
-        public int CountPage { get; set; } = 10;
+    [JsonPropertyName("scrapingDatabase")]
+    public string ScrapingDatabase { get; set; } = "scraper.db";
 
-        [JsonPropertyName("timeout")]
-        public int Timeout { get; set; } = 30;
-    }
+    [JsonPropertyName("count_page")]
+    public int CountPage { get; set; } = 10;
+
+    [JsonPropertyName("timeout")]
+    public int Timeout { get; set; } = 30;
 }
