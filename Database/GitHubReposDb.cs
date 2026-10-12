@@ -1,7 +1,7 @@
-﻿using InternetTechLab1.Models;
+﻿using GitHubApiScraper.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace InternetTechLab1.Database
+namespace GitHubApiScraper.Database
 {
     public class GitHubReposDb : DbContext
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace InternetTechLab1.Models
+namespace GitHubApiScraper.Models
 {
     public class ScrapedPage
     {

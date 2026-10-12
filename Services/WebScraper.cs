@@ -1,9 +1,9 @@
 ﻿using HtmlAgilityPack;
-using InternetTechLab1.Models;
+using GitHubApiScraper.Models;
 using System.Net;
 using System.Text.Json;
 
-namespace InternetTechLab1.Services
+namespace GitHubApiScraper.Services
 {
     public class WebScraper
     {

@@ -1,7 +1,7 @@
-﻿using InternetTechLab1.Models;
+﻿using GitHubApiScraper.Models;
 using LiteDB;
 
-namespace InternetTechLab1.Database
+namespace GitHubApiScraper.Database
 {
     public class ScrapingDb
     {

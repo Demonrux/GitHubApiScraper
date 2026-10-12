@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
-using InternetTechLab1.Models;
+using GitHubApiScraper.Models;
 
-namespace InternetTechLab1.Services
+namespace GitHubApiScraper.Services
 {
     public class GitHubService
     {
@@ -12,15 +12,11 @@ namespace InternetTechLab1.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<GitHubRepository>> SearchRepositoriesAsync(string query , int perPage = 10)
-        {  
+        public async Task<List<GitHubRepository>> SearchRepositoriesAsync(string query, int perPage = 10)
+        {
             try
             {
                 string url = $"https://api.github.com/search/repositories?q={Uri.EscapeDataString(query)}&per_page={perPage}";
-                Console.WriteLine($"URL: {url}");
-                Console.WriteLine($"Поиск репозиториев с: {query}");
-
-                _httpClient.Timeout = TimeSpan.FromSeconds(30);
 
                 HttpResponseMessage response = await _httpClient.GetAsync(url);
 
@@ -30,25 +26,23 @@ namespace InternetTechLab1.Services
 
                     if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                     {
-                        Console.WriteLine("Лимит GitHub API");
+                        Console.WriteLine("Превышен лимит запросов к GitHub API.");
                     }
                     else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                    { 
-                        Console.WriteLine("API не найден");
+                    {
+                        Console.WriteLine("Ресурс API не найден.");
                     }
 
                     return new List<GitHubRepository>();
                 }
 
                 string json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Получен JSON, длина: {json.Length} символов \n");
-
                 using JsonDocument document = JsonDocument.Parse(json);
                 JsonElement root = document.RootElement;
 
                 if (!root.TryGetProperty("items", out var items))
                 {
-                    Console.WriteLine("Элемены не найдены");
+                    Console.WriteLine("Элементы не найдены в ответе.");
                     return new List<GitHubRepository>();
                 }
 
@@ -62,41 +56,34 @@ namespace InternetTechLab1.Services
                         if (repository != null)
                         {
                             repositories.Add(repository);
-                            Console.WriteLine($"Найден: {repository.Name} ({repository.Stars} stars)");
                         }
                     }
                     catch
                     {
-                        // TODO
+                        // skip
                     }
                 }
 
-                Console.WriteLine($"\nНайдено: {repositories.Count} репозиториев");
                 return repositories;
             }
-
             catch (HttpRequestException httpEx)
             {
-                Console.WriteLine($" Ошибка сети: {httpEx.Message}");
-
+                Console.WriteLine($"Ошибка сети: {httpEx.Message}");
                 return new List<GitHubRepository>();
             }
-
             catch (TaskCanceledException)
             {
-                Console.WriteLine("Проверьте подключение к интернету");
+                Console.WriteLine("Превышено время ожидания ответа от сервера.");
                 return new List<GitHubRepository>();
             }
-
             catch (JsonException jsonEx)
             {
                 Console.WriteLine($"Ошибка формата данных: {jsonEx.Message}");
                 return new List<GitHubRepository>();
             }
-
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка: {ex.Message}");
+                Console.WriteLine($"Непредвиденная ошибка: {ex.Message}");
                 return new List<GitHubRepository>();
             }
         }
@@ -117,9 +104,8 @@ namespace InternetTechLab1.Services
                     CreatedAt = DateTime.Parse(item.GetProperty("created_at").GetString() ?? "")
                 };
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Ошибка парсинга: {ex.Message}");
                 return null;
             }
         }
