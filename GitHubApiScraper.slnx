@@ -3,5 +3,5 @@
     <File Path=".gitignore" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="InternetTechLab1.csproj" />
+  <Project Path="GitHubApiScraper.csproj" />
 </Solution>
