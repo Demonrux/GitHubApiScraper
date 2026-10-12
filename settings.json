@@ -1,6 +1,6 @@
 {
-  "api_database": "gitHubRepos.db",
-  "scraping_database" : "scraping_docs.db",
+  "gitHubReposDatabase": "gitHubRepos.db",
+  "scrapingDatabase": "scraping_docs.db",
   "count_page": 15,
   "timeout": 30
 }

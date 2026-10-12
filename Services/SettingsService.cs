@@ -1,11 +1,12 @@
 ﻿using System.Text.Json;
-using InternetTechLab1.Models;
+using GitHubApiScraper.Models;
 
-namespace InternetTechLab1.Services
+namespace GitHubApiScraper.Services
 {
     public class SettingsService
     {
-        private readonly string _settingsPath = "C:\\Users\\DMITRY\\source\\repos\\InternetTechLab1\\settings.json";
+        private readonly string _settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.json");
+
         public Setting CurrentSettings { get; private set; }
 
         public SettingsService()
@@ -21,13 +22,13 @@ namespace InternetTechLab1.Services
                 {
                     string json = File.ReadAllText(_settingsPath);
                     CurrentSettings = JsonSerializer.Deserialize<Setting>(json) ?? new Setting();
-                    Console.WriteLine("Настройки загружены");
+                    Console.WriteLine("Настройки успешно загружены.");
                 }
                 else
                 {
                     CurrentSettings = new Setting();
                     SaveSettings();
-                    Console.WriteLine("Создан файл настроек по умолчанию");
+                    Console.WriteLine("Создан файл настроек по умолчанию.");
                 }
             }
             catch (Exception ex)
@@ -44,11 +45,11 @@ namespace InternetTechLab1.Services
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string json = JsonSerializer.Serialize(CurrentSettings, options);
                 File.WriteAllText(_settingsPath, json);
-                Console.WriteLine("Настройки сохранены");
+                Console.WriteLine("Настройки сохранены.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка сохранения: {ex.Message}");
+                Console.WriteLine($"Ошибка сохранения настроек: {ex.Message}");
             }
         }
 
