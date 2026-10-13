@@ -9,8 +9,6 @@
 
 ---
 
-## Скриншоты
-
 ### Главное меню
 
 ![Главное меню](docs/main-menu.png)
@@ -63,7 +61,7 @@
 ## Структура проекта
 
 ```text
-InternetTechLab1/
+GitHubApiScraper/
 ├── Database/                           # Слой доступа к данным
 │   ├── GitHubReposDb.cs                 # DbContext для SQLite (EF Core)
 │   └── ScrapingDb.cs                    # Обёртка над LiteDB
@@ -123,8 +121,8 @@ InternetTechLab1/
 1. **Клонируйте репозиторий:**
 
    ```bash
-   git clone https://github.com/Demonrux/InternetTechLab1.git
-   cd InternetTechLab1
+   git clone https://github.com/Demonrux/GitHubApiScraper.git
+   cd GitHubApiScraper
    ```
 
 2. **Восстановите зависимости:**
@@ -220,13 +218,5 @@ This domain is for use in illustrative examples in documents...
 
 ## Лицензия
 
-Этот проект распространяется под лицензией **MIT**. Подробности см. в файле [LICENSE](LICENSE).
+Этот проект распространяется под лицензией **MIT**.
 
----
-
-## Автор
-
-**Дмитрий Ананьев**
-- GitHub: [@Demonrux](https://github.com/Demonrux)
-- Email: demonrux201@gmail.com
-- Telegram: [@skebob_gg](https://t.me/skebob_gg)
